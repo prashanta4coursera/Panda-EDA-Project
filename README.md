@@ -2,7 +2,7 @@ This project is an EDA on 1000 movie dataset provided by insaid. The data can be
 
 [100Movie]: https://raw.githubusercontent.com/insaid2018/Term-1/master/Data/Projects/1000%20movies%20data.csv "1000 Movie"
 
-###### # Step 1: Import all the libraries
+###### Step 1: Import all the libraries
 
  ```python
 import numpy as np
