@@ -1,3 +1,5 @@
+![](https://seeklogo.com/images/M/movie-time-cinema-logo-8B5BE91828-seeklogo.com.png)
+
 This project is an EDA on 1000 movie dataset provided by insaid. The data can be downloaded from [1000 Movie][100Movie]
 
 [100Movie]: https://raw.githubusercontent.com/insaid2018/Term-1/master/Data/Projects/1000%20movies%20data.csv "1000 Movie"
@@ -74,6 +76,7 @@ plt.show()
 
 
 **Creating List of all the Actors in the 1000 movie database**
+![](https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwj5mpHvudPmAhXQzDgGHQ_BCF4QjRx6BAgBEAQ&url=https%3A%2F%2Ftheater-and-acting.en.aptoide.com%2F&psig=AOvVaw0BCvY0UL0i8v19-J8QcKGO&ust=1577454426973779)
 ```python
 
 movie_actor = movie_df.Actors.copy()
