@@ -58,3 +58,137 @@ Answer : Top 10 movies by revenue
 max_revenue.sort_values(by = ['Revenue (Millions)','Title'], inplace = True, ascending = False)
 max_revenue[:10]
 ```
+
+Q3. Which years have maximum movies from the list?
+Answer :
+```python
+year_movie = pd.DataFrame(movie_df['Year'].dt.year.value_counts(), index = None)
+year_movie.reset_index(inplace=True)
+year_movie.rename(columns = {'index':'Year','Year':'No of Movies'}, inplace = True)
+year_movie.sort_values(by=['Year'],inplace = True)
+year_movie.set_index('Year', inplace = True)
+
+sns.barplot(data = year_movie, x = year_movie.index.values, y = 'No of Movies')
+plt.show()
+```
+
+
+Creating List of all the Actors in the 1000 movie database
+```python
+
+movie_actor = movie_df.Actors.copy()
+
+movie_actor = movie_actor.str.replace(', ',',')
+movie_actor = list(movie_actor.str.split(','))
+
+movie_actor_list = list(set(x for y in movie_actor for x in y))
+movie_actor_list
+```
+
+Genre based revenues table
+```python
+genre_revenue = []
+genre_movies = []
+
+for x in genre_list_flat : 
+  genre_revenue.append(movie_df[movie_df.Genre.str.contains(x)]['Revenue (Millions)'].sum())
+  genre_movies.append(movie_df[movie_df.Genre.str.contains(x)]['Revenue (Millions)'].count())
+
+d = {'Genre':genre_list_flat,'Revenue (Millions)': genre_revenue,'No of Movies':genre_movies}
+genre_df = pd.DataFrame(d).sort_values(by = ['Revenue (Millions)','Genre'], ascending = [False,True]).reset_index(drop = True)
+genre_df['Revenue (Millions)/ Movie'] = genre_df['Revenue (Millions)'] / genre_df['No of Movies']
+genre_df.round({'Revenue (Millions)/ Movie':2})
+```
+
+Top 20 movies from each Genre
+```python
+top_movie = []
+for x in genre_list_flat : 
+  top_movie.append(movie_df.loc[movie_df['Genre'].str.contains(x)]['Title'][0:1].values)
+
+new_list = list(x for y in top_movie for x in y)
+
+d = {'Genre': genre_list_flat,'Top Movie': new_list}
+pd.DataFrame(d)
+```
+
+Top 20 actors based on no of movies acted
+```python
+noofmovies = []
+for x in movie_actor_list : 
+  noofmovies.append(movie_df['Actors'].str.contains(x).sum())
+actor_movie_dict = {'Actor':movie_actor_list, 'No of Movies':noofmovies}
+pd.DataFrame(actor_movie_dict).sort_values(by=['No of Movies','Actor'],ascending = [False,True]).reset_index(drop = True)[:20]
+```
+Top 20 actors based on total revenues earned
+```python
+for x in movie_actor_list : 
+  actor_revenue.append(movies[movies.Actors.str.contains(x)]['Revenue (Millions)'].sum())
+
+actor_revenue_dict = {'Actor':movie_actor_list,'Revenue':actor_revenue}
+df_actor_revenue = pd.DataFrame(actor_revenue_dict).sort_values(by=['Revenue','Actor'],ascending = [False,True])
+df_actor_revenue.reset_index(drop = True)[:20]
+```
+
+
+Revenues earned year on year by these 1000 movies
+```python
+yearly_revenue = movies.groupby(movies['Year'].dt.year)[['Revenue (Millions)']].sum().reset_index()
+sns.barplot(x = 'Year', y = 'Revenue (Millions)',data = yearly_revenue)
+plt.show()
+```
+No of movies for each rating
+```python
+rating_df = movie_df[['Title','Rating']].copy()
+bins = np.arange(10)
+bins
+rating_df['Rate_Bins'] = pd.cut(rating_df.Rating, bins = bins, right = False)
+rating_df_bins = rating_df.groupby('Rate_Bins',as_index=False).count()
+rating_df_bins.rename(columns = {'Rate_Bins':'Ratings','Rating': 'No of Movies'}, inplace = True)
+sns.barplot(x = 'Ratings',y = 'No of Movies',data = rating_df_bins)
+plt.show()
+```
+
+Revenues earned for each movie ratings available
+```python
+
+rating_rev_df = movies[['Rating','Revenue (Millions)']].copy()
+rating_rev_df['Rate_Bins'] = pd.cut(rating_rev_df.Rating, bins = bins)
+rating_rev = rating_rev_df.groupby('Rate_Bins',as_index = False)[['Revenue (Millions)']].sum()
+rating_rev.columns = ['Ratings','Revenue (Millions)']
+sns.barplot(x = 'Ratings', y = 'Revenue (Millions)', data = rating_rev)
+plt.plot()
+```
+
+Check for relations if any?
+Heatmap
+Pairplot
+```python
+sns.heatmap(movies.corr(),annot = True)
+```
+
+```python
+sns.pairplot(movies, diag_kind = 'kde')
+```
+
+Relations :
+
+1. Metascore vs Rating
+2. Revenue vs Votes
+3. Votes vs Rating
+```python
+sns.jointplot(x = 'Metascore', y = 'Rating', data = movies, kind = 'reg')
+sns.jointplot(x = 'Votes', y = 'Revenue (Millions)', data = movies, kind = 'reg')
+sns.jointplot(x = 'Rating', y = 'Votes', data = movies, kind = 'reg')
+```
+
+Conclusion
+
+Metascore vs Rating
+Metascore is directly related to the ratings.
+
+Revenue vs Votes
+As the number of votes increases the revenue also increases. This maybe because the movie is popular and watched by people many times. But, the relation is still weak.
+
+Votes vs Rating
+As the no of votes increases, the rating also increases, though the relation is quite weaker here.
