@@ -76,7 +76,7 @@ plt.show()
 
 
 **Creating List of all the Actors in the 1000 movie database**
-![](https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwj5mpHvudPmAhXQzDgGHQ_BCF4QjRx6BAgBEAQ&url=https%3A%2F%2Ftheater-and-acting.en.aptoide.com%2F&psig=AOvVaw0BCvY0UL0i8v19-J8QcKGO&ust=1577454426973779)
+
 ```python
 
 movie_actor = movie_df.Actors.copy()
@@ -140,6 +140,7 @@ yearly_revenue = movies.groupby(movies['Year'].dt.year)[['Revenue (Millions)']].
 sns.barplot(x = 'Year', y = 'Revenue (Millions)',data = yearly_revenue)
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/1.png)
 
 **No of movies for each rating**
 ```python
@@ -152,6 +153,7 @@ rating_df_bins.rename(columns = {'Rate_Bins':'Ratings','Rating': 'No of Movies'}
 sns.barplot(x = 'Ratings',y = 'No of Movies',data = rating_df_bins)
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/2.png)
 
 **Revenues earned for each movie ratings available**
 ```python
@@ -163,6 +165,7 @@ rating_rev.columns = ['Ratings','Revenue (Millions)']
 sns.barplot(x = 'Ratings', y = 'Revenue (Millions)', data = rating_rev)
 plt.plot()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/3.png)
 
 **Check for relations if any?
 Heatmap
@@ -170,10 +173,12 @@ Pairplot**
 ```python
 sns.heatmap(movies.corr(),annot = True)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/4.png)
 
 ```python
 sns.pairplot(movies, diag_kind = 'kde')
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/5.png)
 
 **Relations :**
 
@@ -185,6 +190,9 @@ sns.jointplot(x = 'Metascore', y = 'Rating', data = movies, kind = 'reg')
 sns.jointplot(x = 'Votes', y = 'Revenue (Millions)', data = movies, kind = 'reg')
 sns.jointplot(x = 'Rating', y = 'Votes', data = movies, kind = 'reg')
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/6.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/7.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/8.png)
 
 **Conclusion**
 
