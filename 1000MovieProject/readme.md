@@ -26,24 +26,23 @@ raw_movie.head(3)
 movie_df = raw_movie.copy()
 movie_df.describe()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/2.JPG)
+
 ```python
 movie_df.info()
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/2.JPG)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/3.JPG)
 
 ###### Step 4: Let's remove missing values
 ```python
 movie_df.isnull().sum()
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/3.JPG)
-
 ```python
 movies = movie_df.copy()
 movies.dropna(axis = 0, how ='any', inplace = True)
 movies.isnull().sum()
 movies.shape
 ```
-
 
 ###### Step 5: Lets Check if there is any duplicate value
 ```python
