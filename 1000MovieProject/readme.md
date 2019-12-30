@@ -19,6 +19,7 @@ import seaborn as sns
 raw_movie = pd.read_csv('https://raw.githubusercontent.com/insaid2018/Term-1/master/Data/Projects/1000%20movies%20data.csv', sep=',', parse_dates=['Year'], index_col = 'Rank')
 raw_movie.head(3)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/1.JPG)
 
 ###### Step 3 : Look into the data
 ```python
@@ -28,11 +29,14 @@ movie_df.describe()
 ```python
 movie_df.info()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/2.JPG)
 
 ###### Step 4: Let's remove missing values
 ```python
 movie_df.isnull().sum()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/3.JPG)
+
 ```python
 movies = movie_df.copy()
 movies.dropna(axis = 0, how ='any', inplace = True)
@@ -52,7 +56,7 @@ Anwer :
 long_movies = movie_df[['Title','Runtime (Minutes)']]
 long_movies.sort_values(by = ['Runtime (Minutes)','Title'], ascending = [False,True])[:10]
 ```
-
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/6.JPG)
 
 Q2. Which movies earned the maximum revenues ?
 Answer : Top 10 movies by revenue
@@ -60,6 +64,7 @@ Answer : Top 10 movies by revenue
 max_revenue.sort_values(by = ['Revenue (Millions)','Title'], inplace = True, ascending = False)
 max_revenue[:10]
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/7.JPG)
 
 Q3. Which years have maximum movies from the list?
 Answer :
@@ -73,7 +78,7 @@ year_movie.set_index('Year', inplace = True)
 sns.barplot(data = year_movie, x = year_movie.index.values, y = 'No of Movies')
 plt.show()
 ```
-
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/8.JPG)
 
 **Creating List of all the Actors in the 1000 movie database**
 
@@ -87,6 +92,18 @@ movie_actor = list(movie_actor.str.split(','))
 movie_actor_list = list(set(x for y in movie_actor for x in y))
 movie_actor_list
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/9.JPG)
+
+**Creating list of all Genre in the 1000 movie list**
+```python
+genre_list = movie_df.Genre.copy()
+genre_list = list(genre_list.str.split(','))
+
+genre_list_flat = list(set(x for y in genre_list for x in y))
+
+genre_list_flat
+```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/10.JPG)
 
 **Genre based revenues table**
 ```python
@@ -102,6 +119,7 @@ genre_df = pd.DataFrame(d).sort_values(by = ['Revenue (Millions)','Genre'], asce
 genre_df['Revenue (Millions)/ Movie'] = genre_df['Revenue (Millions)'] / genre_df['No of Movies']
 genre_df.round({'Revenue (Millions)/ Movie':2})
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/11.JPG)
 
 **Top 20 movies from each Genre**
 ```python
@@ -114,6 +132,7 @@ new_list = list(x for y in top_movie for x in y)
 d = {'Genre': genre_list_flat,'Top Movie': new_list}
 pd.DataFrame(d)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/12.JPG)
 
 **Top 20 actors based on no of movies acted**
 ```python
@@ -123,6 +142,8 @@ for x in movie_actor_list :
 actor_movie_dict = {'Actor':movie_actor_list, 'No of Movies':noofmovies}
 pd.DataFrame(actor_movie_dict).sort_values(by=['No of Movies','Actor'],ascending = [False,True]).reset_index(drop = True)[:20]
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/13.JPG)
+
 **Top 20 actors based on total revenues earned**
 ```python
 for x in movie_actor_list : 
@@ -132,7 +153,7 @@ actor_revenue_dict = {'Actor':movie_actor_list,'Revenue':actor_revenue}
 df_actor_revenue = pd.DataFrame(actor_revenue_dict).sort_values(by=['Revenue','Actor'],ascending = [False,True])
 df_actor_revenue.reset_index(drop = True)[:20]
 ```
-
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/14.JPG)
 
 **Revenues earned year on year by these 1000 movies**
 ```python
@@ -140,7 +161,7 @@ yearly_revenue = movies.groupby(movies['Year'].dt.year)[['Revenue (Millions)']].
 sns.barplot(x = 'Year', y = 'Revenue (Millions)',data = yearly_revenue)
 plt.show()
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/1.png)
+!![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/15.JPG)
 
 **No of movies for each rating**
 ```python
@@ -153,7 +174,7 @@ rating_df_bins.rename(columns = {'Rate_Bins':'Ratings','Rating': 'No of Movies'}
 sns.barplot(x = 'Ratings',y = 'No of Movies',data = rating_df_bins)
 plt.show()
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/2.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/16.JPG)
 
 **Revenues earned for each movie ratings available**
 ```python
@@ -165,7 +186,7 @@ rating_rev.columns = ['Ratings','Revenue (Millions)']
 sns.barplot(x = 'Ratings', y = 'Revenue (Millions)', data = rating_rev)
 plt.plot()
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/3.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/17.png)
 
 **Check for relations if any?
 Heatmap
@@ -173,12 +194,12 @@ Pairplot**
 ```python
 sns.heatmap(movies.corr(),annot = True)
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/4.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/18.png)
 
 ```python
 sns.pairplot(movies, diag_kind = 'kde')
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/5.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/19.png)
 
 **Relations :**
 
@@ -190,9 +211,9 @@ sns.jointplot(x = 'Metascore', y = 'Rating', data = movies, kind = 'reg')
 sns.jointplot(x = 'Votes', y = 'Revenue (Millions)', data = movies, kind = 'reg')
 sns.jointplot(x = 'Rating', y = 'Votes', data = movies, kind = 'reg')
 ```
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/6.png)
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/7.png)
-![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/8.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/20.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/21.png)
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/1000MovieProject/images/22.png)
 
 **Conclusion**
 
