@@ -112,7 +112,7 @@ winequality_df.info()
 <a id='relation'></a>
 ## **Perform relation analysis by graphical approach**  
 Let's analyse the relationship with pairplot  
-# Make PairPlots with PairGrid function to have more control.
+Make PairPlots with PairGrid function to have more control.
 ```Python
 g = sns.PairGrid(winequality_df)
 g = g.map_upper(sns.kdeplot, cmap = 'YlOrBr', shade = True, shade_lowest = False)     #KDE
@@ -338,6 +338,7 @@ alcohol, density, volatile acidity, chlorides
 2. Decrease in the density of the wine, increases the quality of the wine.
 3. Decrease in the volatile acidity of the wine, increases the quality of the wine.
 4. Decrease in chlorides, increases the quality of the wine.  
+
 ####################################################################################
 
 
