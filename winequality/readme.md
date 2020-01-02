@@ -78,9 +78,7 @@ import seaborn as sns
 winequality_df = pd.read_csv('https://raw.githubusercontent.com/insaid2018/Term-1/master/Data/Projects/winequality.csv')
 winequality_df.head(3)
 ```
-fixed acidity|	volatile acidity|	citric acid|	residual sugar|	chlorides|	free sulfur dioxide|	total sulfur dioxide|	density|	pH| sulphates	|alcohol	|quality
----|---|---|---|---|---|---|---|---|---|---
-1|2|3|4|5|6|7|8|9|10|11|12
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/1.JPG)  
 
 
 We will add our own definition of quality of wine based on quality index.
@@ -97,6 +95,7 @@ Let's see the stats of the data.
 ```python
 winequality_df.describe()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/2.JPG)  
 
 Check if there is any NULL values.  
 ```python
@@ -105,10 +104,14 @@ winequality_df.isnull().sum()
 # No null values as output.
 ```
 
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/3.JPG)  
+
 check the datatype
 ```python
 winequality_df.info()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/4.JPG)  
+
 <a id='relation'></a>
 ## **Perform relation analysis by graphical approach**  
 Let's analyse the relationship with pairplot  
