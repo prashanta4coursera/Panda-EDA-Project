@@ -127,6 +127,7 @@ plt.subplots_adjust(top=0.9, hspace=0.9)
 g.fig.suptitle('Variable Relationship')
 plt.show()
 ```   
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/5.png)  
 
 Check the strength of the correlation among the variables. 
 ```python
@@ -134,6 +135,7 @@ plt.figure(figsize=(12,8))
 ax = sns.heatmap(winequality_df.corr(), cmap='Greens', annot=True)
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/6.png)  
 
 Most important variables   
 ```python
@@ -141,6 +143,7 @@ winequality_df.corr()[['quality']].sort_values(by='quality', ascending = False)
 
 # alcohol, density, volatile acidity, chlorides influence the quality of wine in the order. 
 ```   
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/7.JPG)  
 
 plotting the relationship among the important variables   
 ```python
@@ -153,6 +156,7 @@ g.fig.tight_layout()
 g.fig.suptitle('Relationship')
 plt.subplots_adjust(top=0.9)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/8.png)  
 
 Strong relations :  
 1. free sulfur dioxide ~ total sulfur dioxide  
@@ -170,6 +174,7 @@ g = sns.JointGrid(x='free sulfur dioxide', y='total sulfur dioxide', data=winequ
 g = g.plot_joint(sns.regplot, color='#eb447e')
 g = g.plot_marginals(sns.distplot, color='#fc7f03')
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/9.png)  
 
 ```python
 # Plot JointPlot
@@ -179,6 +184,7 @@ g = sns.JointGrid(x='alcohol', y='density', data=winequality_df)
 g = g.plot_joint(sns.regplot, color='#eb447e')
 g = g.plot_marginals(sns.distplot, color='#fc7f03')
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/10.png) 
 
 ```python
 # Plot JointPlot
@@ -188,6 +194,7 @@ g = sns.JointGrid(x='total sulfur dioxide', y='residual sugar', data=winequality
 g = g.plot_joint(sns.regplot, color='#eb447e')
 g = g.plot_marginals(sns.distplot, color='#fc7f03')
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/11.png)  
 
 ```python
 # Plot JointPlot
@@ -197,6 +204,7 @@ g = sns.JointGrid(x='density', y='residual sugar', data=winequality_df)
 g = g.plot_joint(sns.regplot, color='#eb447e')
 g = g.plot_marginals(sns.distplot, color='#fc7f03')
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/12.png)  
 
 reshape the dataframe with pd.melt for preparing a facetgrid.  
 ```python
@@ -207,6 +215,7 @@ facet_grid_df.quality = facet_grid_df.quality.astype('str')
 facet_grid_df.quality = facet_grid_df.quality.astype('category')
 facet_grid_df.head(3)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/13.JPG)  
 
 Distribution of various varibales across the wine quality : FacetGrid  
 ```python
@@ -222,6 +231,7 @@ g.fig.suptitle('Wine Quality based on variables')
 legend = ['Poor','Medium','Good']
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/14.png)  
 
 Column bar sugesting the variation of the quality of wine with vriation of variable quantity.  
 ```python
@@ -238,6 +248,8 @@ plt.subplots_adjust(top=0.8, hspace=0.8)
 g.fig.suptitle('Median values of wine quality types')
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/15.png)  
+
 <a id='cleaning'></a>
 ## Cleaning the data  
 We want to get rid of the extreme outliers.  
@@ -255,6 +267,8 @@ corrected_melt.quality = facet_grid_df.quality.astype('str')
 corrected_melt.quality = facet_grid_df.quality.astype('category')
 corrected_melt.head(3)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/16.JPG)  
+
 ```python
 # Create 1% quantile data
 p01 = corrected_melt.groupby(['quality','variable'], as_index=False)[['value']].quantile(.01)
@@ -289,6 +303,7 @@ corrected_df.shape
 corrected_df = corrected_df[['quality','overall','variable','value']]
 corrected_df.head(3)
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/17.JPG)  
 
 <a id='checking'></a>
 ## **Checking the relations after cleaning**
@@ -305,6 +320,8 @@ g.fig.suptitle('Wine Quality based on variables')
 legend = ['Poor','Medium','Good']
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/18.png)  
+
 ```python
 # Plot bar for the median values.
 
@@ -319,6 +336,7 @@ plt.subplots_adjust(top=0.8, hspace=0.8)
 g.fig.suptitle('Median values of wine quality types')
 plt.show()
 ```
+![](https://github.com/prashanta4coursera/Panda-EDA-Project/blob/master/winequality/images/19.png)  
 
 ## **Conclusion**
 1. As alcohol level increase ==> Quality increases
